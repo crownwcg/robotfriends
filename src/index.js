@@ -5,5 +5,16 @@ import App from './containers/App';
 import registerServiceWorker from './registerServiceWorker';
 import 'tachyons';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+import { searchRobots } from './reducers'
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
+import { createLogger } from 'redux-logger'
+
+const logger = createLogger()
+const store = createStore(searchRobots, applyMiddleware(logger))
+
+ReactDOM.render(<Provider store={store}> 
+					<App />
+				</Provider>, 
+				document.getElementById('root'));
 registerServiceWorker();
